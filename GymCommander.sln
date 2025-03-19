@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymCommander", "GymCommander\GymCommander.csproj", "{8A335F96-3566-4F29-809E-01DB482288DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A335F96-3566-4F29-809E-01DB482288DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A335F96-3566-4F29-809E-01DB482288DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A335F96-3566-4F29-809E-01DB482288DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A335F96-3566-4F29-809E-01DB482288DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFD4D0A9-FB1F-408B-B761-EB956E5FDFE2}
+	EndGlobalSection
+EndGlobal
