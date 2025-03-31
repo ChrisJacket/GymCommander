@@ -31,7 +31,6 @@
             ControlsGroupBox = new GroupBox();
             Button_AdvancedSearch = new Button();
             Button_ShowAllMembers = new Button();
-            Button_ShowActiveMembers = new Button();
             Button_Search = new Button();
             SearchTextBox = new TextBox();
             Button_Delete = new Button();
@@ -39,11 +38,14 @@
             Button_AddNew = new Button();
             MainListView = new ListView();
             IDColumnHeader = new ColumnHeader();
+            Button_ShowActiveMembers = new Button();
+            Button_ScanCard = new Button();
             ControlsGroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // ControlsGroupBox
             // 
+            ControlsGroupBox.Controls.Add(Button_ScanCard);
             ControlsGroupBox.Controls.Add(Button_AdvancedSearch);
             ControlsGroupBox.Controls.Add(Button_ShowAllMembers);
             ControlsGroupBox.Controls.Add(Button_ShowActiveMembers);
@@ -72,23 +74,12 @@
             // 
             Button_ShowAllMembers.Cursor = Cursors.Hand;
             Button_ShowAllMembers.Font = new Font("Segoe UI", 9F);
-            Button_ShowAllMembers.Location = new Point(6, 191);
+            Button_ShowAllMembers.Location = new Point(6, 257);
             Button_ShowAllMembers.Name = "Button_ShowAllMembers";
             Button_ShowAllMembers.Size = new Size(308, 37);
             Button_ShowAllMembers.TabIndex = 7;
             Button_ShowAllMembers.Text = "Toti membrii";
             Button_ShowAllMembers.UseVisualStyleBackColor = true;
-            // 
-            // Button_ShowActiveMembers
-            // 
-            Button_ShowActiveMembers.Cursor = Cursors.Hand;
-            Button_ShowActiveMembers.Font = new Font("Segoe UI", 9F);
-            Button_ShowActiveMembers.Location = new Point(6, 234);
-            Button_ShowActiveMembers.Name = "Button_ShowActiveMembers";
-            Button_ShowActiveMembers.Size = new Size(308, 37);
-            Button_ShowActiveMembers.TabIndex = 6;
-            Button_ShowActiveMembers.Text = "Membrii activi";
-            Button_ShowActiveMembers.UseVisualStyleBackColor = true;
             // 
             // Button_Search
             // 
@@ -152,6 +143,28 @@
             // 
             IDColumnHeader.Text = "ID";
             // 
+            // Button_ShowActiveMembers
+            // 
+            Button_ShowActiveMembers.Cursor = Cursors.Hand;
+            Button_ShowActiveMembers.Font = new Font("Segoe UI", 9F);
+            Button_ShowActiveMembers.Location = new Point(6, 300);
+            Button_ShowActiveMembers.Name = "Button_ShowActiveMembers";
+            Button_ShowActiveMembers.Size = new Size(308, 37);
+            Button_ShowActiveMembers.TabIndex = 6;
+            Button_ShowActiveMembers.Text = "Membrii activi";
+            Button_ShowActiveMembers.UseVisualStyleBackColor = true;
+            // 
+            // Button_ScanCard
+            // 
+            Button_ScanCard.Cursor = Cursors.Hand;
+            Button_ScanCard.Font = new Font("Segoe UI", 9F);
+            Button_ScanCard.Location = new Point(6, 515);
+            Button_ScanCard.Name = "Button_ScanCard";
+            Button_ScanCard.Size = new Size(308, 60);
+            Button_ScanCard.TabIndex = 9;
+            Button_ScanCard.Text = "Scanare card";
+            Button_ScanCard.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -176,9 +189,10 @@
         private Button Button_Edit;
         private Button Button_Search;
         private TextBox SearchTextBox;
-        private Button Button_ShowActiveMembers;
         private Button Button_ShowAllMembers;
         private Button Button_AdvancedSearch;
         private ColumnHeader IDColumnHeader;
+        private Button Button_ScanCard;
+        private Button Button_ShowActiveMembers;
     }
 }
