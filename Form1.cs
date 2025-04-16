@@ -2,11 +2,12 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 
+
 namespace GymCommander
 {
     public partial class MainForm : Form
     {
-        public static string currentVersion = "0.0.2";
+        public static string currentVersion = "0.0.3";
         public MainForm()
         {
             InitializeComponent();
@@ -22,7 +23,7 @@ namespace GymCommander
 
             ListViewInit();
             LoadDataIntoListView();
-            
+
         }
 
         private void TestingInitializer()
@@ -33,9 +34,16 @@ namespace GymCommander
             FullMemberList.AddRange(new List<Customer> { client1, client2, client3 });
 
         }
-        
+
+        #region Initializers
+
+        #region LoadDataIntoListView_Overloads
+
+        // If the membership expires in less than this number of days, a warning is shown
+        int ExpirationWarning_Days = 7;
         private void LoadDataIntoListView()
         {
+            MainListView.Items.Clear();
             foreach (Customer client in FullMemberList)
             {
                 // the second array member will become a button
@@ -43,15 +51,53 @@ namespace GymCommander
 
                 string[] RowToAdd = { client.MemberID, "//", client.Name, client.MembershipType, client.MembershipExpiration.ToString() };
 
-                if (client.MembershipExpiration.AddDays(-10) < DateOnly.FromDateTime(DateTime.UtcNow))
+                if (client.MembershipExpiration.AddDays(-ExpirationWarning_Days) < DateOnly.FromDateTime(DateTime.UtcNow))
                 {
                     // the TimeOnly is set to 23:59:59 so that membership is still valid on the day it expires
-                    int DaysUntilExpiration = (client.MembershipExpiration.ToDateTime(new TimeOnly(23,59,59)) - DateTime.UtcNow).Days;
-                    RowToAdd[4] += " (" + DaysUntilExpiration + " days left)";
+                    int DaysUntilExpiration = (client.MembershipExpiration.ToDateTime(new TimeOnly(23, 59, 59)) - DateTime.UtcNow).Days;
+                    RowToAdd[4] += " (" + Math.Abs(DaysUntilExpiration);
+
+                    if (Checkbox_ActiveMembersOnly.Checked && DaysUntilExpiration < 0)
+                        continue;
+
+                    if (DaysUntilExpiration > 0)
+                        RowToAdd[4] += " days left)";
+                    else
+                        RowToAdd[4] += " days ago)";
                 }
                 MainListView.Items.Add(new ListViewItem(RowToAdd));
             }
         }
+
+        private void LoadDataIntoListView(string MatchName)
+        {
+            MainListView.Items.Clear();
+            foreach (Customer client in FullMemberList)
+            {
+                if (!client.Name.Contains(MatchName, StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+
+                string[] RowToAdd = { client.MemberID, "//", client.Name, client.MembershipType, client.MembershipExpiration.ToString() };
+
+                if (client.MembershipExpiration.AddDays(-ExpirationWarning_Days) < DateOnly.FromDateTime(DateTime.UtcNow))
+                {
+                    int DaysUntilExpiration = (client.MembershipExpiration.ToDateTime(new TimeOnly(23, 59, 59)) - DateTime.UtcNow).Days;
+
+                    if (Checkbox_ActiveMembersOnly.Checked && DaysUntilExpiration < 0)
+                        continue;
+
+                    RowToAdd[4] += " (" + Math.Abs(DaysUntilExpiration);
+                    if (DaysUntilExpiration > 0)
+                        RowToAdd[4] += " days left)";
+                    else
+                        RowToAdd[4] += " days ago)";
+                }
+
+                MainListView.Items.Add(new ListViewItem(RowToAdd));
+            }
+        }
+        #endregion
 
         private void ListViewInit()
         {
@@ -86,7 +132,9 @@ namespace GymCommander
             MainListView.Columns[4].TextAlign = HorizontalAlignment.Left;
             MainListView.Columns[4].Width = 299;
         }
+        #endregion
 
+        #region Event_Handlers
         private void SearchTextBox_Enter(object sender, EventArgs e)
         {
             if (SearchTextBox.Text == " Cautare...")
@@ -95,6 +143,33 @@ namespace GymCommander
                 SearchTextBox.Font = new Font(SearchTextBox.Font, FontStyle.Regular);
             }
         }
+
+        private void SearchTextBox_Leave(object sender, EventArgs e)
+        {
+            if (SearchTextBox.Text == string.Empty)
+            {
+                SearchTextBox.Text = " Cautare...";
+                SearchTextBox.Font = new Font(SearchTextBox.Font, FontStyle.Italic);
+            }
+        }
+        private void SearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SearchTextBox.Text == " Cautare..." || SearchTextBox.Text == string.Empty)
+                LoadDataIntoListView();
+            else
+                LoadDataIntoListView(SearchTextBox.Text);
+        }
+
+        private void Button_ShowAllMembers_Click(object sender, EventArgs e)
+        {
+            LoadDataIntoListView();
+        }
+
+        private void Checkbox_ActiveMembersOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadDataIntoListView();
+        }
+        #endregion
     }
 
     class Customer
